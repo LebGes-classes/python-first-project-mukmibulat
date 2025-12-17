@@ -1,31 +1,39 @@
-from utils import*
+from utilities import wall, player, finish, clear_screen
 
 
 class Menu:
-    """Управляет меню и отображением игры"""
+    """
+    Данный класс отвечает за взаимодействие с меню и отображение самой игры.
+    """
 
-    @staticmethod
-    def show_main():
-        """Показывает главное меню"""
+    def __init__(self) -> None:
+        """
+        Конструктор класса Menu
+        """
+        pass
 
-        clear_consol()
+    def show_main(self) -> None:
+        """
+        Показать главное меню игры
+        """
+        clear_screen()
         print("-" * 35)
-        print("          ИГРА ЛАБИРИНТ")
+        print("         ИГРА ЛАБИРИНТ")
         print("-" * 35)
-        print("1 - Начать новую игру")
-        print("2 - Инструкция для игры")
-        print("3 - Выход")
+        print("1. Начать новую игру")
+        print("2. Как играть")
+        print("3. Выход")
         print("-" * 35)
 
-    @staticmethod
-    def show_instructions():
-        """Показывает инструкцию"""
-
-        clear_consol()
+    def show_instructions(self) -> None:
+        """
+        Показать инструкцию игры
+        """
+        clear_screen()
         print("-" * 35)
-        print("            КАК ИГРАТЬ")
+        print("          КАК ИГРАТЬ")
         print("-" * 35)
-        print(f"Цель: пройти {MAX_LEVELS} уровней")
+        print(f"Цель: пройти {5} уровней")
         print("Найдите выход из каждого лабиринта!")
         print("\nУправление:")
         print("  W - вверх")
@@ -35,44 +43,46 @@ class Menu:
         print("  M - меню")
         print("  Q - выход")
         print("\nСимволы:")
-        print(f"  {PLAYER} - вы")
-        print(f"  {WALL} - стена")
-        print(f"  {EXIT} - выход")
-        print(f"  {VISITED} - ваш путь")
+        print(f"  {player} - вы")
+        print(f"  {wall} - стена")
+        print(f"  {finish} - выход")
         print("-" * 35)
         input("\nНажмите Enter...")
 
-    @staticmethod
-    def show_game(maze, moves, level):
-        """Показывает игровой экран"""
-
-        clear_consol()
+    def show_game(self, maze: any, moves: int, level: int) -> None:
+        """
+        Показать игровой экран с лабиринтом
+        """
+        clear_screen()
         print("-" * 35)
-        print(f"           УРОВЕНЬ {level}")
+        print(f"         ТЕКУЩИЙУРОВЕНЬ {level}")
         print("-" * 35)
         print(maze.draw())
         print("-" * 35)
         print(f"Ходов: {moves}")
         print("Управление: WASD - движение, M - меню, Q - выход")
 
-    @staticmethod
-    def level_win(level, moves):
-        """Показывает победу на уровне"""
-
-        clear_consol()
-        print('-' * 35)
-        print(f"          УРОВЕНЬ {level} ПРОЙДЕН!")
-        print('-' * 35)
-        print(f"Ходов было сделано Вами: {moves}")
+    def level_win(self, level: int, moves: int) -> None:
+        """
+        Показать экран победы на уровне
+        """
+        clear_screen()
+        print("-" * 35)
+        print(f"        УРОВЕНЬ {level} ПРОЙДЕН!")
+        print("-" * 35)
+        print(f"Ходов: {moves}")
         print("\n1. Следующий уровень")
-        print("2. Меню")
+        print("2. Меню(Выход)")
+        print("-" * 35)
 
-
-    @staticmethod
-    def game_win():
-        """Показывает победу во всей игре"""
-
-        clear_consol()
-        print('-' * 35)
-        print('          ИГРА ПРОЙДЕНА!')
-        print('-' * 35)
+    def game_win(self) -> None:
+        """
+        Показать экран победы во всей игре
+        """
+        clear_screen()
+        print("-" * 35)
+        print("         ВЫ ПРОШЛИ ВСЕ УРОВНИ!")
+        print("-" * 35)
+        print("         Поздравляем с победой!")
+        print("-" * 35)
+        input("\nНажмите Enter для продолжения.")
