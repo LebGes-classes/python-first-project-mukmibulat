@@ -25,17 +25,13 @@ class Maze:
         """
         Генерирует лабиринт с помощью алгоритма Recursive Backtracker
         """
-        # 1. Инициализация: создаем поле из стен
         self.field = [[wall for _ in range(self.width)] for _ in range(self.height)]
 
-        # 2. Начинаем с начальной клетки (1, 1)
         start_x, start_y = 1, 1
         self.field[start_y][start_x] = way
 
-        # 3. Список направлений для проверки
-        directions = [(0, -2), (2, 0), (0, 2), (-2, 0)]  # Вверх, вправо, вниз, влево
+        directions = [(0, -2), (2, 0), (0, 2), (-2, 0)]
 
-        # 4. Рекурсивная функция для генерации
         def carve(x: int, y: int) -> None:
             """
             Рекурсивно 'прорубает' проходы из текущей клетки
