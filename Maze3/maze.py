@@ -19,41 +19,61 @@ class Maze:
         self.field = []
         self.player_x = 1
         self.player_y = 1
-        self.create()
+        self._generate_recursive_backtracker()
 
-    def create(self) -> None:
+    def _generate_recursive_backtracker(self) -> None:
         """
-        Создать случайный лабиринт с помощью алгоритма поиска в глубину.
+        Генерирует лабиринт с помощью алгоритма Recursive Backtracker
         """
-        self.field = [[wall for i in range(self.width)] for i in range(self.height)]
+        # 1. Инициализация: создаем поле из стен
+        self.field = [[wall for _ in range(self.width)] for _ in range(self.height)]
 
-        stack = [(1, 1)]
-        self.field[1][1] = way
+        # 2. Начинаем с начальной клетки (1, 1)
+        start_x, start_y = 1, 1
+        self.field[start_y][start_x] = way
 
-        while stack:
-            x, y = stack[-1]
+        # 3. Список направлений для проверки
+        directions = [(0, -2), (2, 0), (0, 2), (-2, 0)]  # Вверх, вправо, вниз, влево
 
-            neighbors = []
-            for dx, dy in [(0, -2), (2, 0), (0, 2), (-2, 0)]:
-                nx, ny = x + dx, y + dy
-                if 0 < nx < self.width - 1 and 0 < ny < self.height - 1:
-                    if self.field[ny][nx] == wall:
-                        neighbors.append((nx, ny, dx, dy))
+        # 4. Рекурсивная функция для генерации
+        def carve(x: int, y: int) -> None:
+            """
+            Рекурсивно 'прорубает' проходы из текущей клетки
 
-            if neighbors:
-                nx, ny, dx, dy = random.choice(neighbors)
-                wx, wy = x + dx // 2, y + dy // 2
-                self.field[wy][wx] = way
-                self.field[ny][nx] = way
-                stack.append((nx, ny))
-            else:
-                stack.pop()
+            Args:
+                x координата текущей клетки.
+                y координата текущей клетки.
+            """
+            shuffled_directions = directions.copy()
+            random.shuffle(shuffled_directions)
 
+            for dx, dy in shuffled_directions:
+                next_x, next_y = x + dx, y + dy
+
+                wall_x, wall_y = x + dx // 2, y + dy // 2
+
+                if (0 < next_x < self.width - 1 and
+                        0 < next_y < self.height - 1 and
+                        self.field[next_y][next_x] == wall):
+
+                    self.field[wall_y][wall_x] = way
+                    self.field[next_y][next_x] = way
+
+                    carve(next_x, next_y)
+
+        carve(start_x, start_y)
+
+        self._create_entrance_and_exit()
+        self.player_x = 1
+        self.player_y = 1
+
+    def _create_entrance_and_exit(self) -> None:
+        """
+        Создать вход и выход в лабиринте
+        """
         self.field[1][0] = way
         self.field[self.height - 2][self.width - 1] = way
         self.field[self.height - 2][self.width - 2] = finish
-        self.player_x = 1
-        self.player_y = 1
 
     def can_move(self, x: int, y: int) -> bool:
         """
@@ -68,8 +88,11 @@ class Maze:
             True: если можно двигаться в эту клетку
         """
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
+
             return False
+
         return self.field[y][x] != wall
+
     def move_player(self, dx: int, dy: int) -> bool:
         """
         Перемещает игрока на dx по горизонтали и dy по вертикали
@@ -88,7 +111,9 @@ class Maze:
         if self.can_move(new_x, new_y):
             self.player_x = new_x
             self.player_y = new_y
+
             return True
+
         return False
 
     def at_exit(self) -> bool:
@@ -117,4 +142,5 @@ class Maze:
                 else:
                     row.append(self.field[y][x])
             result.append(''.join(row))
+
         return '\n'.join(result)

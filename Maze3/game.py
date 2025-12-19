@@ -34,6 +34,7 @@ class Game:
                 self.menu.show_instructions()
             elif choice == '3':
                 print("До свидания!")
+
                 sys.exit()
 
     def start_new(self) -> None:
@@ -75,6 +76,7 @@ class Game:
             self.menu.show_game(self.maze, self.moves, self.level)
 
             if self.maze.at_exit():
+
                 return
 
             command = input("Команда: ").lower()
@@ -94,7 +96,9 @@ class Game:
                     self.moves += 1
             elif command in 'Mm':
                 self.active = False
+
                 return
+
             elif command == 'q':
                 print("До свидания!")
                 sys.exit()
