@@ -10,12 +10,14 @@ class Menu:
         """
         Конструктор класса Menu
         """
+
         pass
 
     def show_main(self) -> None:
         """
         Показать главное меню игры
         """
+
         clear_screen()
         print("-" * 35)
         print("         ИГРА ЛАБИРИНТ")
@@ -29,6 +31,7 @@ class Menu:
         """
         Показать инструкцию игры
         """
+
         clear_screen()
         print("-" * 35)
         print("          КАК ИГРАТЬ")
@@ -53,6 +56,7 @@ class Menu:
         """
         Показать игровой экран с лабиринтом
         """
+
         clear_screen()
         print("-" * 35)
         print(f"         ТЕКУЩИЙУРОВЕНЬ {level}")
@@ -66,6 +70,7 @@ class Menu:
         """
         Показать экран победы на уровне
         """
+
         clear_screen()
         print("-" * 35)
         print(f"        УРОВЕНЬ {level} ПРОЙДЕН!")
@@ -79,6 +84,7 @@ class Menu:
         """
         Показать экран победы во всей игре
         """
+
         clear_screen()
         print("-" * 35)
         print("         ВЫ ПРОШЛИ ВСЕ УРОВНИ!")

@@ -13,6 +13,7 @@ class Game:
         """
         Конструктор класса Game
         """
+
         self.maze = None
         self.level = 1
         self.moves = 0
@@ -23,6 +24,7 @@ class Game:
         """
         Главный метод игры, который запускает бесконечный цикл меню
         """
+
         while True:
             self.menu.show_main()
             choice = input("Выберите: ")
@@ -41,6 +43,7 @@ class Game:
         """
         Начать новую игру с первого уровня
         """
+
         self.level = 1
         self.active = True
         self.play_levels()
@@ -49,6 +52,7 @@ class Game:
         """
         Играть все уровни от 1 до 5 подряд.
         """
+
         while self.active and self.level <= 5:
             self.maze = Maze(self.level)
             self.moves = 0
@@ -72,6 +76,7 @@ class Game:
         """
         Играть один уровень лабиринта.
         """
+
         while self.active:
             self.menu.show_game(self.maze, self.moves, self.level)
 
@@ -101,4 +106,5 @@ class Game:
 
             elif command == 'q':
                 print("До свидания!")
+
                 sys.exit()

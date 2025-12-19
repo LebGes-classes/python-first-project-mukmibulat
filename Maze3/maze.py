@@ -13,6 +13,7 @@ class Maze:
 
         :param level: Номер уровня для генерации лабиринта.
         """
+
         self.level = level
         self.width = 15 + level * 2
         self.height = 11 + level * 2
@@ -25,6 +26,7 @@ class Maze:
         """
         Генерирует лабиринт с помощью алгоритма Recursive Backtracker
         """
+
         self.field = [[wall for _ in range(self.width)] for _ in range(self.height)]
 
         start_x, start_y = 1, 1
@@ -40,6 +42,7 @@ class Maze:
                 x координата текущей клетки.
                 y координата текущей клетки.
             """
+
             shuffled_directions = directions.copy()
             random.shuffle(shuffled_directions)
 
@@ -67,6 +70,7 @@ class Maze:
         """
         Создать вход и выход в лабиринте
         """
+
         self.field[1][0] = way
         self.field[self.height - 2][self.width - 1] = way
         self.field[self.height - 2][self.width - 2] = finish
@@ -83,6 +87,7 @@ class Maze:
             False: если нельзя двигаться в эту клетку
             True: если можно двигаться в эту клетку
         """
+
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
 
             return False
@@ -101,6 +106,7 @@ class Maze:
             True: движение выполнено успешно.
             False: движение невозможно.
         """
+
         new_x = self.player_x + dx
         new_y = self.player_y + dy
 
@@ -120,6 +126,7 @@ class Maze:
             True: если игрок на клетке финиша($).
             False: если игрок не на клетке финиша($).
         """
+
         return self.field[self.player_y][self.player_x] == finish
 
     def draw(self) -> str:
@@ -129,9 +136,12 @@ class Maze:
         Returns:
             Визуальное представление всего лабиринта с игроком, стенами, путями и финишем.
         """
+
         result = []
+
         for y in range(self.height):
             row = []
+
             for x in range(self.width):
                 if x == self.player_x and y == self.player_y:
                     row.append(player)
